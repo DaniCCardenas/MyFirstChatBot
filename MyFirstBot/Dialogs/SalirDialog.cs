@@ -33,7 +33,7 @@ namespace MyFirstBot.Dialogs
             }
             else
             {
-                await context.PostAsync("¿No te vas? ¡pues sigamos!");
+                await context.PostAsync("¿No te vas? ¡Me alegro!");
             }
 
             context.Done(new object());

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
@@ -11,8 +10,8 @@ namespace MyFirstBot.Dialogs
     {
 
         public async Task StartAsync(IDialogContext context)
-        {
-            context.Wait(MessageReceivedAsync);
+        {         
+            context.Wait(MessageReceivedAsync);  
         }
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
@@ -27,39 +26,23 @@ namespace MyFirstBot.Dialogs
             {
                 context.Call(new SalirDialog(), AfterChildDialogIsDone);
             }
-            else if(message.Text.ToLower().Equals("Mostrar tarjeta", StringComparison.InvariantCultureIgnoreCase))
+            else if (message.Text.ToLower().Equals("Mostrar tarjeta", StringComparison.InvariantCultureIgnoreCase))
             {
                 context.Call(new HeroCardDialog(), AfterChildDialogIsDone);
             }
-            else if(message.Text.ToLower().Equals("Orden", StringComparison.InvariantCultureIgnoreCase))
+            else      
             {
-                context.Forward(new NuevaOrdenDialog(), ResumeAfterNewOrderDialog, message, CancellationToken.None);
-            }
-            else
-            {
+                await context.PostAsync("No te he entendido. Escribe Hola, Salir o Mostrar tarjeta para ver los disntintos comportamientos.");
                 context.Wait(MessageReceivedAsync);
             }
-
+               
+            
         }
-
 
         private async Task AfterChildDialogIsDone(IDialogContext context, IAwaitable<object> result)
         {
             context.Wait(MessageReceivedAsync);
         }
-
-        private async Task ResumeAfterNewOrderDialog(IDialogContext context, IAwaitable<object> result)
-        {
-            // Store the value that NewOrderDialog returned. 
-            // (At this point, new order dialog has finished and returned some value to use within the root dialog.)
-            var resultFromNewOrder = await result;
-
-            await context.PostAsync($"New order dialog just told me this: {resultFromNewOrder}");
-
-            // Again, wait for the next message from the user.
-            context.Wait(MessageReceivedAsync);
-        }
-
 
     }
 }

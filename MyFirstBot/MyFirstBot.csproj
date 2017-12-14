@@ -114,14 +114,11 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\SalirDialog.cs" />
     <Compile Include="Dialogs\HeroCardDialog.cs" />
-    <Compile Include="Dialogs\NuevaOrdenDialog.cs" />
     <Compile Include="Dialogs\SaludoDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model\ReservaRestaurante.cs" />
-    <Compile Include="Model\TiposComida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
